@@ -14,8 +14,14 @@ window.onload = function (){
     var width = canvas.width, height = canvas.height;
 
     function translatePoint(px, py) {
-        var x = (px - width/2) * (x_max - x_min) / width;
-        var y = -1 * ((py - height/2) * (y_max - y_min) / height);
+        var x_range = x_max - x_min;
+        var px_shift = width * Math.abs(x_min) / x_range; // shift to center for canvas coordinates
+        var x = (px - px_shift) * x_range / width;
+
+        var y_range = y_max - y_min;
+        var py_shift = height * Math.abs(y_min) / y_range;
+        var y = -1 * (py - py_shift) * y_range / height;
+
         return new Complex(x, y);
     }
 
