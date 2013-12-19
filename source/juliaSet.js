@@ -1,11 +1,11 @@
 window.onload = function (){
     var maxIter = 20;
 
-    var c = 1/3;
+    var c = new Complex(1/3, 1/3);
     function f(z) {
         return z.square().add(c);
     }
-    var R = (1.0 + Math.sqrt(1 + 4 * Math.abs(c))) / 2.0;
+    var R = (1.0 + Math.sqrt(1 + 4 * c.abs())) / 2.0;
 
     var x_min = -R, x_max = R, y_min = -R, y_max = R;
 
