@@ -96,5 +96,11 @@ CanvasManager.prototype = {
         //maxIter *= 2;
         this.clearCanvas();
         this.drawSet(self.checkPoint);
+    },
+
+    resetZoom: function () {
+        this.currentAxes = this.defaultAxes;
+        this.clearCanvas();
+        this.drawSet(self.checkPoint);  
     }
 }
