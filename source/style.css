@@ -1,0 +1,11 @@
+canvas {
+    border: medium dotted;
+    float: left;
+    margin: 10px 20px 0px 10px;
+    height: 600px;    
+    width: 600px;
+}
+
+.resetButton {
+    margin-top: 10px;
+}
