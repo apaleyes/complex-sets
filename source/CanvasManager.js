@@ -17,6 +17,8 @@ var CanvasManager = function (canvasId, defaultAxes, checkPoint) {
     this.isZoomInProcess = false;
     this.initStartZoom();
     this.initEndZoom();
+    // used to prevent accidential click on canvas instead of zoom
+    this.minZoomWindowSize = 10;
 }
 
 CanvasManager.prototype = {
@@ -73,11 +75,17 @@ CanvasManager.prototype = {
         var self = this;
         self.canvas.onmouseup = function (e) {
             if (!self.isZoomInProcess) {
+                self.isZoomInProcess = false;
                 return;
             }
 
             self.endX = (e.clientX - self.canvasRect.left) / self.canvas.clientWidth * self.canvas.width;
             self.endY = (e.clientY - self.canvasRect.top) / self.canvas.clientHeight * self.canvas.height;
+
+            if (!self.isValidZoom()) {
+                self.isZoomInProcess = false;
+                return;
+            }
 
             self.performZoom();
 
@@ -102,5 +110,16 @@ CanvasManager.prototype = {
         this.currentAxes = this.defaultAxes;
         this.clearCanvas();
         this.drawSet(self.checkPoint);  
+    },
+
+    // Zoom is considered invalid if any of zoom window sizes is less than minZoomWindowSize
+    // This helps avoid unwanted zoom operations, e.g. clicks
+    isValidZoom: function () {
+        var xSize = Math.max(this.startX, this.endX) - Math.min(this.startX, this.endX);
+        var ySize = Math.max(this.startY, this.endY) - Math.min(this.startY, this.endY);
+
+        var xValid = (xSize >= this.minZoomWindowSize);
+        var yValid = (ySize >= this.minZoomWindowSize);
+        return xValid && yValid;
     }
 }
