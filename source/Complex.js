@@ -31,5 +31,13 @@ Complex.prototype = {
 
     abs: function() {
         return Math.sqrt(this.x*this.x + this.y*this.y);
+    },
+
+    equals: function(z) {
+        if (!(z instanceof Complex)) {
+            return false;
+        }
+
+        return this.x == z.x && this.y == z.y;
     }
 }

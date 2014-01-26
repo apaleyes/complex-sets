@@ -11,11 +11,24 @@ var defaults = {
    y_max: 1.5 
 };
 
-function checkMandelbrotPoint(c) {
-    var z = new Complex(0, 0);
-    for (var i = 1; i <= maxIter; i++) {
+function checkMandelbrotPoint(c, ratio) {
+    var iterCount = maxIter;
+    if (typeof(ratio) !== 'undefined') {
+        iterCount *= ratio;
+    }
+
+    var z = new Complex(0, 0), prev = NaN;
+    for (var i = 1; i <= iterCount; i++) {
+        prev = z;
         z = f(z, c);
-        if (z.abs() > 2) return false;
+
+        if (z.equals(prev)) {
+            return true;
+        }
+
+        if (z.abs() > 2) {
+            return false;
+        }
     }
     return true;
 }

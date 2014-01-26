@@ -47,11 +47,14 @@ CanvasManager.prototype = {
     },
 
     drawSet: function () {
+        var ratio = this.getRatio();
+
         this.context.fillStyle = "#000000";
+        var start = new Date();
         for (var w = 0; w <= this.canvas.width; w++){
             for (var h = 0; h <= this.canvas.height; h++){
                 var z = this.translatePoint(w, h);
-                if (this.checkPoint(z)) {
+                if (this.checkPoint(z, ratio)) {
                     // belongs to set - color black                
                     //ctx.putImageData(pixelData, w, h);
                     this.context.fillRect(w, h, 1, 1);
@@ -60,6 +63,10 @@ CanvasManager.prototype = {
                 }            
             }
         }
+        var end = new Date();
+
+        var executionTime = end - start;
+        console.log("DrawSet worked for " + executionTime + " ms");
     },
 
     initStartZoom: function() {
@@ -121,5 +128,17 @@ CanvasManager.prototype = {
         var xValid = (xSize >= this.minZoomWindowSize);
         var yValid = (ySize >= this.minZoomWindowSize);
         return xValid && yValid;
+    },
+
+    getRatio: function () {
+        var xCurrent = this.currentAxes.x_max - this.currentAxes.x_min;
+        var yCurrent = this.currentAxes.y_max - this.currentAxes.y_min;
+        var xDefault = this.defaultAxes.x_max - this.defaultAxes.x_min;
+        var yDefault = this.defaultAxes.y_max - this.defaultAxes.y_min;
+
+        var xRatio = xDefault / xCurrent;
+        var yRatio = yDefault / yCurrent;
+
+        return Math.min(xRatio, yRatio);
     }
 }
