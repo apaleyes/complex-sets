@@ -39,5 +39,13 @@ Complex.prototype = {
         }
 
         return this.x == z.x && this.y == z.y;
+    },
+
+    norm: function() {
+        return Math.sqrt(this.sumOfSquares);
+    },
+
+    sumOfSquares: function() {
+        return this.x*this.x + this.y*this.y;
     }
 }
