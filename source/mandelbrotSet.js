@@ -1,4 +1,4 @@
-var maxIter = 15;
+var maxIter = 200;
 
 function f(z, c){
     return z.square().add(c);
@@ -11,25 +11,29 @@ var defaults = {
    y_max: 1.5 
 };
 
+var count = 0;
 function checkMandelbrotPoint(c, ratio) {
     var iterCount = maxIter;
-    if (typeof(ratio) !== 'undefined') {
-        iterCount *= ratio;
-    }
 
-    var z = new Complex(0, 0), prev = NaN;
+    var cx = c.x, cy = c.y;
+
+    var x = 0, y = 0, prevX = NaN, prevY = NaN;
     for (var i = 1; i <= iterCount; i++) {
-        prev = z;
-        z = f(z, c);
+        prevX = x;
+        prevY = y;
+        x = x*x - y*y + cx;
+        y = 2 * prevX * prevY + cy;
 
-        if (z.equals(prev)) {
+        if (x == prevX && y == prevY) {
+            count++;
             return true;
         }
 
-        if (z.abs() > 2) {
+        if (x*x+y*y > 4) {
             return false;
         }
     }
+
     return true;
 }
 

@@ -56,7 +56,6 @@ CanvasManager.prototype = {
                 var z = this.translatePoint(w, h);
                 if (this.checkPoint(z, ratio)) {
                     // belongs to set - color black                
-                    //ctx.putImageData(pixelData, w, h);
                     this.context.fillRect(w, h, 1, 1);
                 } else {
                     // does not belong to set - do nothing (color white)
@@ -66,7 +65,7 @@ CanvasManager.prototype = {
         var end = new Date();
 
         var executionTime = end - start;
-        console.log("DrawSet worked for " + executionTime + " ms");
+        //console.log("DrawSet worked for " + executionTime + " ms");
     },
 
     initStartZoom: function() {
