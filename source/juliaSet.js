@@ -24,7 +24,7 @@ function checkJuliaPoint(z) {
 var canvasManager;
 
 window.onload = function () {
-    canvasManager = new CanvasManager('main', defaults, checkJuliaPoint);
+    canvasManager = new CanvasManager('main', null, defaults, checkJuliaPoint);
     canvasManager.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];

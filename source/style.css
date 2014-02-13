@@ -1,8 +1,26 @@
-canvas {
-    border: medium dotted;
-    float: left;
+div.canvasContainer {
     margin: 10px 20px 0px 10px;
-    height: 600px;    
+    float: left;
+    position: relative;
+}
+
+canvas {
+    border-width: medium;
+}
+
+canvas#main {
+    border-style: dotted;    
+    height: 600px;
+    width: 600px;
+}
+
+canvas#zoom {
+    border-style: solid;
+    border-color: transparent;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 600px;
     width: 600px;
 }
 

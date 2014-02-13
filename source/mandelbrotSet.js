@@ -40,7 +40,7 @@ function checkMandelbrotPoint(c, ratio) {
 var canvasManager;
 
 window.onload = function (){
-    canvasManager = new CanvasManager('main', defaults, checkMandelbrotPoint);
+    canvasManager = new CanvasManager('main', 'zoom', defaults, checkMandelbrotPoint);
     canvasManager.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];
