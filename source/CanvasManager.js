@@ -9,21 +9,14 @@ var CanvasManager = function (canvasId, zoomCanvasId, defaultAxes, checkPoint) {
 
     if (this.zoomCanvasId != null) {
         this.zoomCanvas = document.getElementById(this.zoomCanvasId);
+        this.zoomCanvasRect = this.zoomCanvas.getBoundingClientRect();
+        this.zoomContext = this.zoomCanvas.getContext('2d');
     }
 
     this.defaultAxes = defaultAxes;
     this.currentAxes = this.defaultAxes;
 
-    // init zoom
-    this.startX = 0;
-    this.startY = 0;
-    this.endX = 0;
-    this.endY = 0;
-    this.isZoomInProcess = false;
-    this.initStartZoom();
-    this.initEndZoom();
-    // used to prevent accidential click on canvas instead of zoom
-    this.minZoomWindowSize = 10;
+    this.initZoom();
 }
 
 CanvasManager.prototype = {
@@ -44,6 +37,14 @@ CanvasManager.prototype = {
         var y = this.translateY(py);
 
         return new Complex(x, y);
+    },
+
+    toWidthUnits: function (w) {
+        return w / this.canvas.clientWidth * this.canvas.width;
+    },
+
+    toHeightUnits: function (h) {
+        return h / this.canvas.clientHeight * this.canvas.height;
     },
 
     clearCanvas: function () {
@@ -73,25 +74,74 @@ CanvasManager.prototype = {
         //console.log("DrawSet worked for " + executionTime + " ms");
     },
 
+    initZoom: function() {
+        this.startX = 0;
+        this.startY = 0;
+        this.endX = 0;
+        this.endY = 0;
+        this.isZoomInProcess = false;
+        this.initStartZoom();
+        this.initEndZoom();
+        this.initZoomMove();
+        // used to prevent accidential click on canvas instead of zoom
+        this.minZoomWindowSize = 10;
+    },
+
+    drawZoomRect: function(x, y) {
+        this.clearZoomCanvas();
+
+        var ctx = this.zoomContext;
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "#00FF00";
+        ctx.setLineDash([5]);
+
+        var minX = this.toWidthUnits(Math.min(this.clientStartX, x));
+        var minY = this.toHeightUnits(Math.min(this.clientStartY, y));
+        var width = this.toWidthUnits(Math.abs(this.clientStartX - x));
+        var height = this.toHeightUnits(Math.abs(this.clientStartY - y));
+
+        ctx.strokeRect(minX, minY, width, height);
+    },
+
+    clearZoomCanvas: function() {
+        this.zoomContext.clearRect(0, 0, this.zoomCanvas.width, this.zoomCanvas.height);
+    },
+
+    initZoomMove: function() {
+        var self = this;
+        self.zoomCanvas.onmousemove = function (e) {
+            if (self.isZoomInProcess) {
+                var mouseX = e.clientX - self.zoomCanvasRect.left;
+                var mouseY = e.clientY - self.zoomCanvasRect.top;
+
+                self.drawZoomRect(mouseX, mouseY);
+            }
+        }
+    },
+
     initStartZoom: function() {
         var self = this;
-        self.canvas.onmousedown = function (e) {
-            self.startX = (e.clientX - self.canvasRect.left) / self.canvas.clientWidth * self.canvas.width;
-            self.startY = (e.clientY - self.canvasRect.top) / self.canvas.clientHeight * self.canvas.height;
+        self.zoomCanvas.onmousedown = function (e) {
+            self.clientStartX = e.clientX - self.canvasRect.left;
+            self.clientStartY = e.clientY - self.canvasRect.top;
+
+            self.startX = self.toWidthUnits(self.clientStartX);
+            self.startY = self.toHeightUnits(self.clientStartY);
             self.isZoomInProcess = true;
         }
     },
 
     initEndZoom: function() {
         var self = this;
-        self.canvas.onmouseup = function (e) {
+        self.zoomCanvas.onmouseup = function (e) {
+            self.clearZoomCanvas();
             if (!self.isZoomInProcess) {
                 self.isZoomInProcess = false;
                 return;
             }
 
-            self.endX = (e.clientX - self.canvasRect.left) / self.canvas.clientWidth * self.canvas.width;
-            self.endY = (e.clientY - self.canvasRect.top) / self.canvas.clientHeight * self.canvas.height;
+            self.endX = self.toWidthUnits(e.clientX - self.canvasRect.left);
+            self.endY = self.toHeightUnits(e.clientY - self.canvasRect.top);
 
             if (!self.isValidZoom()) {
                 self.isZoomInProcess = false;
