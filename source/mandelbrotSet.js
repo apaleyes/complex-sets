@@ -11,7 +11,6 @@ var defaults = {
    y_max: 1.5 
 };
 
-var count = 0;
 function checkMandelbrotPoint(c, ratio) {
     var iterCount = maxIter;
 
@@ -25,16 +24,15 @@ function checkMandelbrotPoint(c, ratio) {
         y = 2 * prevX * prevY + cy;
 
         if (x == prevX && y == prevY) {
-            count++;
-            return true;
+            return {inSet: true};
         }
 
         if (x*x+y*y > 4) {
-            return false;
+            return {inSet: false, iterationRate: i / maxIter};
         }
     }
 
-    return true;
+    return {inSet: true};
 }
 
 var canvasManager;

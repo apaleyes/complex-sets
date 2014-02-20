@@ -55,16 +55,22 @@ CanvasManager.prototype = {
     drawSet: function () {
         var ratio = this.getRatio();
 
-        this.context.fillStyle = "#000000";
         var start = new Date();
         for (var w = 0; w <= this.canvas.width; w++){
             for (var h = 0; h <= this.canvas.height; h++){
                 var z = this.translatePoint(w, h);
-                if (this.checkPoint(z, ratio)) {
+                var pointData = this.checkPoint(z, ratio);
+                if (pointData.inSet) {
                     // belongs to set - color black                
+                    this.context.fillStyle = "#000000";
                     this.context.fillRect(w, h, 1, 1);
                 } else {
-                    // does not belong to set - do nothing (color white)
+                    // does not belong to set - color depending on iteration
+                    var colorDegree = Math.round(255 * (1 - pointData.iterationRate));
+                    //console.log(pointData.iterationRate);
+                    var color = 'rgb(' + colorDegree + ',' + colorDegree + ',' + colorDegree + ')';
+                    this.context.fillStyle = color;
+                    this.context.fillRect(w, h, 1, 1);
                 }            
             }
         }
