@@ -67,7 +67,6 @@ CanvasManager.prototype = {
                 } else {
                     // does not belong to set - color depending on iteration
                     var colorDegree = Math.round(255 * (1 - pointData.iterationRate));
-                    //console.log(pointData.iterationRate);
                     var color = 'rgb(' + colorDegree + ',' + colorDegree + ',' + colorDegree + ')';
                     this.context.fillStyle = color;
                     this.context.fillRect(w, h, 1, 1);
@@ -77,7 +76,6 @@ CanvasManager.prototype = {
         var end = new Date();
 
         var executionTime = end - start;
-        //console.log("DrawSet worked for " + executionTime + " ms");
     },
 
     initZoom: function() {
@@ -168,7 +166,6 @@ CanvasManager.prototype = {
             y_max: this.translateY(Math.min(this.startY, this.endY))
         }
 
-        //maxIter *= 2;
         this.clearCanvas();
         this.drawSet(self.checkPoint);
     },
