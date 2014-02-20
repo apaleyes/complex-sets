@@ -16,6 +16,10 @@ function checkMandelbrotPoint(c, ratio) {
 
     var cx = c.x, cy = c.y;
 
+    if (checkCardiodOrSecondBulb(cx, cy)) {
+        return {inSet: true};
+    }
+
     var x = 0, y = 0, prevX = NaN, prevY = NaN;
     for (var i = 1; i <= iterCount; i++) {
         prevX = x;
@@ -33,6 +37,14 @@ function checkMandelbrotPoint(c, ratio) {
     }
 
     return {inSet: true};
+}
+
+// Optimization check
+// Details: http://en.wikipedia.org/wiki/Mandelbrot_set#Cardioid_.2F_bulb_checking
+function checkCardiodOrSecondBulb(x, y) {
+    var p = (x - 1/4);
+    var q = p*p + y*y;
+    return q * (q + p) < 1/4 * y*y;
 }
 
 var canvasManager;
