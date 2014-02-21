@@ -60,17 +60,30 @@ CanvasManager.prototype = {
             for (var h = 0; h <= this.canvas.height; h++){
                 var z = this.translatePoint(w, h);
                 var pointData = this.checkPoint(z, ratio);
-                if (pointData.inSet) {
-                    // belongs to set - color black                
-                    this.context.fillStyle = "#000000";
+
+                if (typeof(pointData.inSet) !== 'undefined') {
+                    // pointData contains info about iterations - apply coloring
+                    if (pointData.inSet) {
+                        // belongs to set - color black
+                        this.context.fillStyle = "#000000";
+                    } else {
+                        // does not belong to set - color depending on iteration
+                        var colorDegree = Math.round(255 * (1 - pointData.iterationRate));
+                        var color = 'rgb(' + colorDegree + ',' + colorDegree + ',' + colorDegree + ')';
+                        this.context.fillStyle = color;
+                    }
+
                     this.context.fillRect(w, h, 1, 1);
                 } else {
-                    // does not belong to set - color depending on iteration
-                    var colorDegree = Math.round(255 * (1 - pointData.iterationRate));
-                    var color = 'rgb(' + colorDegree + ',' + colorDegree + ',' + colorDegree + ')';
-                    this.context.fillStyle = color;
-                    this.context.fillRect(w, h, 1, 1);
-                }            
+                    // pointData is just a boolean - do not apply coloring
+                    if (pointData) {
+                        // belongs to set - color black
+                        this.context.fillStyle = "#000000";
+                        this.context.fillRect(w, h, 1, 1);
+                    } else {
+                        // does not belong to set - do nothing
+                    }
+                }
             }
         }
         var end = new Date();

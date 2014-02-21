@@ -1,6 +1,6 @@
 var maxIter = 20;
 
-var c = new Complex(1/3, -1/2);
+var c = new Complex(1/3, 1/2);
 function f(z) {
     return z.square().add(c);
 }
@@ -24,7 +24,7 @@ function checkJuliaPoint(z) {
 var canvasManager;
 
 window.onload = function () {
-    canvasManager = new CanvasManager('main', null, defaults, checkJuliaPoint);
+    canvasManager = new CanvasManager('main', 'zoom', defaults, checkJuliaPoint);
     canvasManager.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];
