@@ -32,7 +32,7 @@ function checkMandelbrotPoint(c, ratio) {
         }
 
         if (x*x+y*y > 4) {
-            return {inSet: false, iterationRate: i / maxIter};
+            return {inSet: false, iteration: i};
         }
     }
 
@@ -47,10 +47,20 @@ function checkCardiodOrSecondBulb(x, y) {
     return q * (q + p) < 1/4 * y*y;
 }
 
+function colorMandelbrotPoint(pointData) {
+    if (pointData.inSet) {
+        return "#000000";
+    } else {
+        var colorRate = Math.round(255 * (1 - pointData.iteration / maxIter));
+        var color = 'rgb(' + colorRate + ',' + colorRate + ',' + colorRate + ')';
+        return color;
+    }
+}
+
 var canvasManager;
 
 window.onload = function (){
-    canvasManager = new CanvasManager('main', 'zoom', defaults, checkMandelbrotPoint);
+    canvasManager = new CanvasManager('main', 'zoom', defaults, checkMandelbrotPoint, colorMandelbrotPoint);
     canvasManager.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];

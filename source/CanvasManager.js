@@ -1,7 +1,8 @@
-var CanvasManager = function (canvasId, zoomCanvasId, defaultAxes, checkPoint) {
+var CanvasManager = function (canvasId, zoomCanvasId, defaultAxes, checkPoint, colorPoint) {
     this.canvasId = canvasId;
     this.zoomCanvasId = zoomCanvasId;
     this.checkPoint = checkPoint;
+    this.colorPoint = colorPoint;
 
     this.canvas = document.getElementById(this.canvasId);
     this.canvasRect = this.canvas.getBoundingClientRect();
@@ -60,23 +61,13 @@ CanvasManager.prototype = {
             for (var h = 0; h <= this.canvas.height; h++){
                 var z = this.translatePoint(w, h);
                 var pointData = this.checkPoint(z, ratio);
-
-                if (typeof(pointData.inSet) !== 'undefined') {
-                    // pointData contains info about iterations - apply coloring
-                    if (pointData.inSet) {
-                        // belongs to set - color black
-                        this.context.fillStyle = "#000000";
-                    } else {
-                        // does not belong to set - color depending on iteration
-                        var colorDegree = Math.round(255 * (1 - pointData.iterationRate));
-                        var color = 'rgb(' + colorDegree + ',' + colorDegree + ',' + colorDegree + ')';
-                        this.context.fillStyle = color;
-                    }
-
+                if (typeof(this.colorPoint) !== 'undefined') {
+                    var color = this.colorPoint(pointData);
+                    this.context.fillStyle = color;
                     this.context.fillRect(w, h, 1, 1);
                 } else {
-                    // pointData is just a boolean - do not apply coloring
-                    if (pointData) {
+                    // color function is not provided - default to dlack and white coloring
+                    if (pointData.inSet) {
                         // belongs to set - color black
                         this.context.fillStyle = "#000000";
                         this.context.fillRect(w, h, 1, 1);

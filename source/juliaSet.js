@@ -16,9 +16,11 @@ var defaults = {
 function checkJuliaPoint(z) {
     for (var i = 1; i <= maxIter; i++) {
         z = f(z);
-        if (z.abs() > R) return false;
+        if (z.abs() > R) {
+          return {inSet: false};
+        }
     }
-    return true;
+    return {inSet: true};
 }
 
 var canvasManager;
