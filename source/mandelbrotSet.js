@@ -47,20 +47,29 @@ function checkCardiodOrSecondBulb(x, y) {
     return q * (q + p) < 1/4 * y*y;
 }
 
-function colorMandelbrotPoint(pointData) {
+var inSetHue = {r: 0, g: 0, b: 0};
+var orangeRedHue = {r: 220, g: 20, b: 60}
+function getColor(minHue, maxHue, rate) {
+    var r = Math.round((maxHue.r - minHue.r) * rate);
+    var g = Math.round((maxHue.g - minHue.g) * rate);
+    var b = Math.round((maxHue.b - minHue.b) * rate);
+
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
+
+function linearGradient(pointData) {
     if (pointData.inSet) {
-        return "#000000";
+        return getColor(inSetHue, orangeRedHue, 0);
     } else {
-        var colorRate = Math.round(255 * (1 - pointData.iteration / maxIter));
-        var color = 'rgb(' + colorRate + ',' + colorRate + ',' + colorRate + ')';
-        return color;
+        var colorRate = 1 - pointData.iteration / maxIter;
+        return getColor(inSetHue, orangeRedHue, colorRate);
     }
 }
 
 var canvasManager;
 
 window.onload = function (){
-    canvasManager = new CanvasManager('main', 'zoom', defaults, checkMandelbrotPoint, colorMandelbrotPoint);
+    canvasManager = new CanvasManager('main', 'zoom', defaults, checkMandelbrotPoint, linearGradient);
     canvasManager.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];
