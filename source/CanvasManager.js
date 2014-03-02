@@ -1,8 +1,8 @@
-var CanvasManager = function (canvasId, zoomCanvasId, defaultAxes, checkPoint, colorPoint) {
-    this.canvasId = canvasId;
-    this.zoomCanvasId = zoomCanvasId;
-    this.checkPoint = checkPoint;
-    this.colorPoint = colorPoint;
+var CanvasManager = function (options) {
+    this.canvasId = options.canvasId;
+    this.zoomCanvasId = options.zoomCanvasId;
+    this.checkPoint = options.checkPoint;
+    this.colorPoint = options.colorPoint;
 
     this.canvas = document.getElementById(this.canvasId);
     this.canvasRect = this.canvas.getBoundingClientRect();
@@ -14,7 +14,7 @@ var CanvasManager = function (canvasId, zoomCanvasId, defaultAxes, checkPoint, c
         this.zoomContext = this.zoomCanvas.getContext('2d');
     }
 
-    this.defaultAxes = defaultAxes;
+    this.defaultAxes = options.defaultAxes;
     this.currentAxes = this.defaultAxes;
 
     this.initZoom();

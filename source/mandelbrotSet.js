@@ -69,7 +69,13 @@ function linearGradient(pointData) {
 var canvasManager;
 
 window.onload = function (){
-    canvasManager = new CanvasManager('main', 'zoom', defaults, checkMandelbrotPoint, linearGradient);
+    canvasManager = new CanvasManager({
+        canvasId: 'main',
+        zoomCanvasId: 'zoom',
+        defaultAxes: defaults,
+        checkPoint: checkMandelbrotPoint,
+        colorPoint: linearGradient
+    });
     canvasManager.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];
