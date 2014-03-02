@@ -2,13 +2,18 @@ var CanvasManager = function (options) {
     this.canvasId = options.canvasId;
     this.zoomCanvasId = options.zoomCanvasId;
     this.checkPoint = options.checkPoint;
-    this.colorPoint = options.colorPoint;
+    
+    if (options.colorPoint && options.colorPoint != null) {
+        this.colorPoint = options.colorPoint;
+    } else {
+        this.colorPoint = this.defaultColorPoint;
+    }
 
     this.canvas = document.getElementById(this.canvasId);
     this.canvasRect = this.canvas.getBoundingClientRect();
     this.context = this.canvas.getContext('2d');
 
-    if (this.zoomCanvasId != null) {
+    if (this.zoomCanvasId && this.zoomCanvasId != null) {
         this.zoomCanvas = document.getElementById(this.zoomCanvasId);
         this.zoomCanvasRect = this.zoomCanvas.getBoundingClientRect();
         this.zoomContext = this.zoomCanvas.getContext('2d');
@@ -61,25 +66,24 @@ CanvasManager.prototype = {
             for (var h = 0; h <= this.canvas.height; h++){
                 var z = this.translatePoint(w, h);
                 var pointData = this.checkPoint(z, ratio);
-                if (typeof(this.colorPoint) !== 'undefined') {
-                    var color = this.colorPoint(pointData);
+                var color = this.colorPoint(pointData);
+                if (typeof(color) !== 'undefined') {
                     this.context.fillStyle = color;
                     this.context.fillRect(w, h, 1, 1);
-                } else {
-                    // color function is not provided - default to dlack and white coloring
-                    if (pointData.inSet) {
-                        // belongs to set - color black
-                        this.context.fillStyle = "#000000";
-                        this.context.fillRect(w, h, 1, 1);
-                    } else {
-                        // does not belong to set - do nothing
-                    }
                 }
             }
         }
         var end = new Date();
 
         var executionTime = end - start;
+    },
+
+    defaultColorPoint: function(pointData) {
+        if (pointData.inSet) {
+            return '#000000';
+        } else {
+            return;
+        }
     },
 
     initZoom: function() {
