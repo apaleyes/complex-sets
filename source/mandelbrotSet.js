@@ -48,7 +48,8 @@ function checkCardiodOrSecondBulb(x, y) {
 }
 
 var inSetHue = {r: 0, g: 0, b: 0};
-var orangeRedHue = {r: 220, g: 20, b: 60}
+var orangeRedHue = {r: 220, g: 20, b: 60};
+var blueGreenHue = {r: 13, g: 152, b: 186};
 function getColor(minHue, maxHue, rate) {
     var r = Math.round((maxHue.r - minHue.r) * rate);
     var g = Math.round((maxHue.g - minHue.g) * rate);
@@ -66,6 +67,37 @@ function linearGradient(pointData) {
     }
 }
 
+var histogram = [];
+var histogramTotal;
+for (var i=0; i<maxIter; i++) {
+    histogram.push(0);
+}
+
+function histogramColorPoint(pointData) {
+    if (!pointData.inSet) {
+        histogram[pointData.iteration - 1] += 1;
+    }
+    return;
+}
+
+function histogramCalculationFinished() {
+    histogramTotal = 0.0;
+    for (var i = 0; i < maxIter; i += 1) {
+        histogramTotal += histogram[i];
+    }
+}
+
+function histogramPostColorPoint(pointData) {
+    var rate = 0.0;
+    if (!pointData.inSet) {
+        for (var i = 0; i < pointData.iteration; i += 1) {
+            rate += histogram[i] / histogramTotal;
+        }
+    }
+
+    return getColor(inSetHue, blueGreenHue, rate);
+}
+
 var canvasManager;
 
 window.onload = function (){
@@ -74,7 +106,10 @@ window.onload = function (){
         zoomCanvasId: 'zoom',
         defaultAxes: defaults,
         checkPoint: checkMandelbrotPoint,
-        colorPoint: linearGradient
+        //colorPoint: linearGradient
+        colorPoint: histogramColorPoint,
+        postColorPoint: histogramPostColorPoint,
+        calculationFinished: histogramCalculationFinished
     });
     canvasManager.drawSet();
 

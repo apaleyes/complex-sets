@@ -9,6 +9,14 @@ var CanvasManager = function (options) {
         this.colorPoint = this.defaultColorPoint;
     }
 
+    if (options.postColorPoint && options.postColorPoint != null) {
+        this.postColorPoint = options.postColorPoint;
+    }
+
+    if (options.calculationFinished && options.calculationFinished != null) {
+        this.calculationFinished = options.calculationFinished;
+    }
+
     this.canvas = document.getElementById(this.canvasId);
     this.canvasRect = this.canvas.getBoundingClientRect();
     this.context = this.canvas.getContext('2d');
@@ -21,6 +29,14 @@ var CanvasManager = function (options) {
 
     this.defaultAxes = options.defaultAxes;
     this.currentAxes = this.defaultAxes;
+
+    this.allPointsData = [];
+    for (var i = 0; i <= this.canvas.width; i++) {
+        this.allPointsData.push([]);
+        for (var j = 0; j <= this.canvas.height; j++) {
+            this.allPointsData[i].push(null);
+        }
+    }
 
     this.initZoom();
 }
@@ -66,16 +82,35 @@ CanvasManager.prototype = {
             for (var h = 0; h <= this.canvas.height; h++){
                 var z = this.translatePoint(w, h);
                 var pointData = this.checkPoint(z, ratio);
+                this.allPointsData[w][h] = pointData;
                 var color = this.colorPoint(pointData);
-                if (typeof(color) !== 'undefined') {
-                    this.context.fillStyle = color;
-                    this.context.fillRect(w, h, 1, 1);
-                }
+                this.applyColor(color, w, h);
             }
         }
         var end = new Date();
 
         var executionTime = end - start;
+
+        if (this.calculationFinished) {
+            this.calculationFinished();
+        }
+
+        if (this.postColorPoint) {
+            for (var w = 0; w <= this.canvas.width; w++){
+                for (var h = 0; h <= this.canvas.height; h++){
+                    var z = this.translatePoint(w, h);
+                    var color = this.postColorPoint(this.allPointsData[w][h]);
+                    this.applyColor(color, w, h);
+                }
+            }
+        }
+    },
+
+    applyColor: function (color, w, h) {
+        if (typeof(color) !== 'undefined') {
+            this.context.fillStyle = color;
+            this.context.fillRect(w, h, 1, 1);
+        }
     },
 
     defaultColorPoint: function(pointData) {
