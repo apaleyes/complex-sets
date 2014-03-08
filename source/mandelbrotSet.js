@@ -51,9 +51,9 @@ var inSetHue = {r: 0, g: 0, b: 0};
 var orangeRedHue = {r: 220, g: 20, b: 60};
 var blueGreenHue = {r: 13, g: 152, b: 186};
 function getColor(minHue, maxHue, rate) {
-    var r = Math.round((maxHue.r - minHue.r) * rate);
-    var g = Math.round((maxHue.g - minHue.g) * rate);
-    var b = Math.round((maxHue.b - minHue.b) * rate);
+    var r = Math.round(maxHue.r * rate + minHue.r * (1.0 - rate));
+    var g = Math.round(maxHue.g * rate + minHue.g * (1.0 - rate));
+    var b = Math.round(maxHue.b * rate + minHue.b * (1.0 - rate));
 
     return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
@@ -98,6 +98,41 @@ function histogramPostColorPoint(pointData) {
     return getColor(inSetHue, blueGreenHue, rate);
 }
 
+function getTestPaletteColor(rate) {
+    // source http://en.wikipedia.org/wiki/File:Escape_Time_Algorithm.png
+    var palette = [
+        {rate: 0.0, hue: {r: 0, g: 0, b: 0}},
+        {rate: 0.25, hue: {r: 255, g: 170, b: 0}},
+        {rate: 0.50, hue: {r: 211, g: 236, b: 248}},
+        {rate: 1.0, hue: {r: 25, g: 7, b: 26}},
+    ];
+
+    for (var i=0; i<palette.length - 1; i++) {
+        if (palette[i].rate <= rate && rate <= palette[i+1].rate) {
+            var localRate = (rate - palette[i].rate) / (palette[i+1].rate - palette[i].rate);
+            return getColor(palette[i].hue, palette[i+1].hue, localRate);
+        }
+    }
+
+    throw "rate is " + rate + ", should be between 0 and 1";
+}
+
+function histogramPalettePostColorPoint(pointData) {
+    var rate = 0.0;
+    if (!pointData.inSet) {
+        for (var i = 0; i < pointData.iteration; i += 1) {
+            rate += histogram[i] / histogramTotal;
+        }
+    }
+
+    // maybe dirty, but working workaround for numbers like 1.0000000000004
+    if (rate > 1.0) {
+        rate = 1.0;
+    }
+
+    return getTestPaletteColor(rate);
+}
+
 var canvasManager;
 
 window.onload = function (){
@@ -108,7 +143,7 @@ window.onload = function (){
         checkPoint: checkMandelbrotPoint,
         //colorPoint: linearGradient
         colorPoint: histogramColorPoint,
-        postColorPoint: histogramPostColorPoint,
+        postColorPoint: histogramPalettePostColorPoint,
         calculationFinished: histogramCalculationFinished
     });
     canvasManager.drawSet();
