@@ -16,6 +16,40 @@ function checkMandelbrotPoint(c, ratio) {
 
     var cx = c.x, cy = c.y;
 
+    if (checkCardiodOrSecondBulb(c)) {
+        return {inSet: true};
+    }
+
+    var z = new Complex(), prevZ;
+    for (var i = 1; i <= iterCount; i++) {
+        prevZ = z;
+        z = f(z, c);
+
+        if (z.equals(prevZ)) {
+            return {inSet: true};
+        }
+
+        if (z.normSquared() > 4) {
+            return {inSet: false, iteration: i};
+        }
+    }
+
+    return {inSet: true};
+}
+
+// Optimization check
+// Details: http://en.wikipedia.org/wiki/Mandelbrot_set#Cardioid_.2F_bulb_checking
+function checkCardiodOrSecondBulb(c) {
+    var p = (c.x - 1/4);
+    var q = p*p + c.y*c.y;
+    return q * (q + p) < 1/4 * c.y*c.y;
+}
+
+function checkMandelbrotPointJsOptimized(c, ratio) {
+    var iterCount = maxIter;
+
+    var cx = c.x, cy = c.y;
+
     if (checkCardiodOrSecondBulb(cx, cy)) {
         return {inSet: true};
     }
@@ -41,7 +75,7 @@ function checkMandelbrotPoint(c, ratio) {
 
 // Optimization check
 // Details: http://en.wikipedia.org/wiki/Mandelbrot_set#Cardioid_.2F_bulb_checking
-function checkCardiodOrSecondBulb(x, y) {
+function checkCardiodOrSecondBulbJsOptimized(x, y) {
     var p = (x - 1/4);
     var q = p*p + y*y;
     return q * (q + p) < 1/4 * y*y;

@@ -42,10 +42,10 @@ Complex.prototype = {
     },
 
     norm: function() {
-        return Math.sqrt(this.sumOfSquares);
+        return Math.sqrt(this.normSquared());
     },
 
-    sumOfSquares: function() {
+    normSquared: function() {
         return this.x*this.x + this.y*this.y;
     }
 }

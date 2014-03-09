@@ -87,9 +87,6 @@ CanvasManager.prototype = {
                 this.applyColor(color, w, h);
             }
         }
-        var end = new Date();
-
-        var executionTime = end - start;
 
         if (this.calculationFinished) {
             this.calculationFinished();
@@ -104,6 +101,10 @@ CanvasManager.prototype = {
                 }
             }
         }
+
+        var end = new Date();
+        var executionTime = end - start;
+        console.log("Drawn in " + executionTime + " ms");
     },
 
     applyColor: function (color, w, h) {
@@ -216,7 +217,7 @@ CanvasManager.prototype = {
     resetZoom: function () {
         this.currentAxes = this.defaultAxes;
         this.clearCanvas();
-        this.drawSet(self.checkPoint);  
+        this.drawSet(self.checkPoint);
     },
 
     // Zoom is considered invalid if any of zoom window sizes is less than minZoomWindowSize
