@@ -27,25 +27,10 @@ window.onload = function (){
         checkPoint: function(c) { return checker.checkPoint(c); }
     };
 
-    // var linerGrad = new LinearGradientColorProvider(blackHue, blueGreenHue, maxIter);
-    // options.colorPoint = function (pointData) {
-    //     if (pointData.inSet) {
-    //         return linerGrad.getColor(maxIter);
-    //     } else {
-    //         return linerGrad.getColor(pointData.iteration);
-    //     }
-    // };
-
-    // var palette = [
-    //     {rate: 0.0, hue: {r: 25, g: 7, b: 26}},
-    //     {rate: 0.5, hue: {r: 211, g: 236, b: 248}},
-    //     {rate: 0.70, hue: {r: 255, g: 170, b: 0}},
-    //     {rate: 1.0, hue: {r: 0, g: 0, b: 0}},
-    // ];
     var palette = [
         {rate: 0.0, hue: {r: 0, g: 0, b: 0}},
         {rate: 0.65, hue: {r: 255, g: 0, b: 0}},
-        {rate: 0.95, hue: {r: 255, g: 255, b: 0}},
+        {rate: 0.99, hue: {r: 255, g: 255, b: 0}},
         {rate: 1.0, hue: {r: 255, g: 255, b: 255}}
     ];
     var histogram = new HistogramColorProvider(palette, maxIter);
