@@ -1,9 +1,5 @@
 var maxIter = 200;
 
-function f(z, c){
-    return z.square().add(c);
-}
-
 var defaults = {
    x_min: -2,
    x_max: 0.75,

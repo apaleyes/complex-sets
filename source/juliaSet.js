@@ -1,9 +1,5 @@
 var maxIter = 20;
-
 var c = new Complex(1/3, 1/2);
-function f(z) {
-    return z.square().add(c);
-}
 var R = (1.0 + Math.sqrt(1 + 4 * c.abs())) / 2.0;
 
 var defaults = {
@@ -13,24 +9,16 @@ var defaults = {
    y_max: R 
 };
 
-function checkJuliaPoint(z) {
-    for (var i = 1; i <= maxIter; i++) {
-        z = f(z);
-        if (z.abs() > R) {
-          return {inSet: false};
-        }
-    }
-    return {inSet: true};
-}
-
 var canvasManager;
 
 window.onload = function () {
+    var checker = new JuliaSetChecker(maxIter, c, R);
+
     canvasManager = new CanvasManager({
         canvasId: 'main',
         zoomCanvasId: 'zoom',
         defaultAxes: defaults,
-        checkPoint: checkJuliaPoint
+        checkPoint: function(c) { return checker.checkPoint(c); }
     });
     canvasManager.drawSet();
 
