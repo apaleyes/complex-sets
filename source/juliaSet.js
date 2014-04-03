@@ -9,22 +9,22 @@ var defaults = {
    y_max: R 
 };
 
-var canvasManager;
+var canvasWrapper;
 
 window.onload = function () {
     var checker = new JuliaSetChecker(maxIter, c, R);
 
-    canvasManager = new CanvasManager({
+    canvasWrapper = new CanvasWrapper({
         canvasId: 'main',
         zoomCanvasId: 'zoom',
         defaultAxes: defaults,
         checkPoint: function(c) { return checker.checkPoint(c); }
     });
-    canvasManager.drawSet();
+    canvasWrapper.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];
     resetButton.onclick = function () {
-        canvasManager.resetZoom();
+        canvasWrapper.resetZoom();
     }
 }
 

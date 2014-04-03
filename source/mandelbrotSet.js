@@ -11,7 +11,7 @@ var blackHue = {r: 0, g: 0, b: 0};
 var orangeRedHue = {r: 220, g: 20, b: 60};
 var blueGreenHue = {r: 13, g: 152, b: 186};
 
-var canvasManager;
+var canvasWrapper;
 
 window.onload = function (){
     var checker = new MandelbrotSetChecker(maxIter);
@@ -43,11 +43,11 @@ window.onload = function (){
         }
     };
 
-    canvasManager = new CanvasManager(options);
-    canvasManager.drawSet();
+    canvasWrapper = new CanvasWrapper(options);
+    canvasWrapper.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];
     resetButton.onclick = function () {
-        canvasManager.resetZoom();
+        canvasWrapper.resetZoom();
     }
 }

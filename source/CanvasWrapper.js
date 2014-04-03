@@ -1,4 +1,4 @@
-var CanvasManager = function (options) {
+var CanvasWrapper = function (options) {
     this.canvasId = options.canvasId;
     this.zoomCanvasId = options.zoomCanvasId;
     this.checkPoint = options.checkPoint;
@@ -43,7 +43,7 @@ var CanvasManager = function (options) {
     this.initZoom();
 }
 
-CanvasManager.prototype = {
+CanvasWrapper.prototype = {
     translateX: function (px) {
         var x_range = this.currentAxes.x_max - this.currentAxes.x_min;
         var x = x_range / this.width * px + this.currentAxes.x_min;
