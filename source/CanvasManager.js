@@ -18,6 +18,8 @@ var CanvasManager = function (options) {
     }
 
     this.canvas = document.getElementById(this.canvasId);
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
     this.canvasRect = this.canvas.getBoundingClientRect();
     this.context = this.canvas.getContext('2d');
 
@@ -31,9 +33,9 @@ var CanvasManager = function (options) {
     this.currentAxes = this.defaultAxes;
 
     this.allPointsData = [];
-    for (var i = 0; i <= this.canvas.width; i++) {
+    for (var i = 0; i <= this.width; i++) {
         this.allPointsData.push([]);
-        for (var j = 0; j <= this.canvas.height; j++) {
+        for (var j = 0; j <= this.height; j++) {
             this.allPointsData[i].push(null);
         }
     }
@@ -44,13 +46,13 @@ var CanvasManager = function (options) {
 CanvasManager.prototype = {
     translateX: function (px) {
         var x_range = this.currentAxes.x_max - this.currentAxes.x_min;
-        var x = x_range / this.canvas.width * px + this.currentAxes.x_min;
+        var x = x_range / this.width * px + this.currentAxes.x_min;
         return x;
     },
 
     translateY: function (py) {
         var y_range = this.currentAxes.y_max - this.currentAxes.y_min;
-        var y = -1.0 * y_range / this.canvas.height * py + this.currentAxes.y_max;
+        var y = -1.0 * y_range / this.height * py + this.currentAxes.y_max;
         return y;
     },
 
@@ -62,24 +64,24 @@ CanvasManager.prototype = {
     },
 
     toWidthUnits: function (w) {
-        return w / this.canvas.clientWidth * this.canvas.width;
+        return w / this.canvas.clientWidth * this.width;
     },
 
     toHeightUnits: function (h) {
-        return h / this.canvas.clientHeight * this.canvas.height;
+        return h / this.canvas.clientHeight * this.height;
     },
 
     clearCanvas: function () {
         this.context.fillStyle = "#FFFFFF";
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.fillRect(0, 0, this.width, this.height);
     },
 
     drawSet: function () {
         var ratio = this.getRatio();
 
         var start = new Date();
-        for (var w = 0; w <= this.canvas.width; w++){
-            for (var h = 0; h <= this.canvas.height; h++){
+        for (var w = 0; w <= this.width; w++){
+            for (var h = 0; h <= this.height; h++){
                 var z = this.translatePoint(w, h);
                 var pointData = this.checkPoint(z, ratio);
                 this.allPointsData[w][h] = pointData;
@@ -93,8 +95,8 @@ CanvasManager.prototype = {
         }
 
         if (this.postColorPoint) {
-            for (var w = 0; w <= this.canvas.width; w++){
-                for (var h = 0; h <= this.canvas.height; h++){
+            for (var w = 0; w <= this.width; w++){
+                for (var h = 0; h <= this.height; h++){
                     var z = this.translatePoint(w, h);
                     var color = this.postColorPoint(this.allPointsData[w][h]);
                     this.applyColor(color, w, h);
