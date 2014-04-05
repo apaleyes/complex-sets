@@ -14,15 +14,6 @@ var blueGreenHue = {r: 13, g: 152, b: 186};
 var canvasWrapper;
 
 window.onload = function (){
-    var checker = new MandelbrotSetChecker(maxIter);
-
-    var options = {
-        canvasId: 'main',
-        zoomCanvasId: 'zoom',
-        defaultAxes: defaults,
-        checkPoint: function(c) { return checker.checkPoint(c); }
-    };
-
     var palette = [
         {rate: 0.0, hue: {r: 0, g: 0, b: 0}},
         {rate: 0.65, hue: {r: 255, g: 0, b: 0}},
@@ -30,17 +21,30 @@ window.onload = function (){
         {rate: 1.0, hue: {r: 255, g: 255, b: 255}}
     ];
     var histogram = new HistogramColorProvider(palette, maxIter);
-    options.colorPoint = function(pointData) {
-        if (!pointData.inSet) {
-            histogram.countColor(pointData.iteration);
+
+    var checker = new MandelbrotSetChecker(maxIter);
+
+    var drawStrategy = new PointStrategy({
+        checkPoint: function(c) { return checker.checkPoint(c); },
+        colorPoint: function(pointData) {
+            if (!pointData.inSet) {
+                histogram.countColor(pointData.iteration);
+            }
+        },
+        postColorPoint: function(pointData) {
+            if (pointData.inSet) {
+                return histogram.getColor(maxIter);
+            } else {
+                return histogram.getColor(pointData.iteration);
+            }
         }
-    };
-    options.postColorPoint = function(pointData) {
-        if (pointData.inSet) {
-            return histogram.getColor(maxIter);
-        } else {
-            return histogram.getColor(pointData.iteration);
-        }
+    });
+
+    var options = {
+        canvasId: 'main',
+        zoomCanvasId: 'zoom',
+        defaultAxes: defaults,
+        drawStrategy: drawStrategy
     };
 
     canvasWrapper = new CanvasWrapper(options);

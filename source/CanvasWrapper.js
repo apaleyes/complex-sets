@@ -1,21 +1,8 @@
 var CanvasWrapper = function (options) {
     this.canvasId = options.canvasId;
     this.zoomCanvasId = options.zoomCanvasId;
-    this.checkPoint = options.checkPoint;
-    
-    if (options.colorPoint && options.colorPoint != null) {
-        this.colorPoint = options.colorPoint;
-    } else {
-        this.colorPoint = this.defaultColorPoint;
-    }
 
-    if (options.postColorPoint && options.postColorPoint != null) {
-        this.postColorPoint = options.postColorPoint;
-    }
-
-    if (options.calculationFinished && options.calculationFinished != null) {
-        this.calculationFinished = options.calculationFinished;
-    }
+    this.drawStrategy = options.drawStrategy;
 
     this.canvas = document.getElementById(this.canvasId);
     this.width = this.canvas.width;
@@ -31,14 +18,6 @@ var CanvasWrapper = function (options) {
 
     this.defaultAxes = options.defaultAxes;
     this.currentAxes = this.defaultAxes;
-
-    this.allPointsData = [];
-    for (var i = 0; i <= this.width; i++) {
-        this.allPointsData.push([]);
-        for (var j = 0; j <= this.height; j++) {
-            this.allPointsData[i].push(null);
-        }
-    }
 
     this.initZoom();
 }
@@ -80,29 +59,7 @@ CanvasWrapper.prototype = {
         var ratio = this.getRatio();
 
         var start = new Date();
-        for (var w = 0; w <= this.width; w++){
-            for (var h = 0; h <= this.height; h++){
-                var z = this.translatePoint(w, h);
-                var pointData = this.checkPoint(z, ratio);
-                this.allPointsData[w][h] = pointData;
-                var color = this.colorPoint(pointData);
-                this.applyColor(color, w, h);
-            }
-        }
-
-        if (this.calculationFinished) {
-            this.calculationFinished();
-        }
-
-        if (this.postColorPoint) {
-            for (var w = 0; w <= this.width; w++){
-                for (var h = 0; h <= this.height; h++){
-                    var z = this.translatePoint(w, h);
-                    var color = this.postColorPoint(this.allPointsData[w][h]);
-                    this.applyColor(color, w, h);
-                }
-            }
-        }
+        this.drawStrategy.draw(this);
 
         var end = new Date();
         var executionTime = end - start;
@@ -113,14 +70,6 @@ CanvasWrapper.prototype = {
         if (typeof(color) !== 'undefined') {
             this.context.fillStyle = color;
             this.context.fillRect(w, h, 1, 1);
-        }
-    },
-
-    defaultColorPoint: function(pointData) {
-        if (pointData.inSet) {
-            return '#000000';
-        } else {
-            return;
         }
     },
 

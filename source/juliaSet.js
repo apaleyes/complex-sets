@@ -13,12 +13,15 @@ var canvasWrapper;
 
 window.onload = function () {
     var checker = new JuliaSetChecker(maxIter, c, R);
+    var drawStrategy = new PointStrategy({
+        checkPoint: function(c) { return checker.checkPoint(c); }
+    });
 
     canvasWrapper = new CanvasWrapper({
         canvasId: 'main',
         zoomCanvasId: 'zoom',
         defaultAxes: defaults,
-        checkPoint: function(c) { return checker.checkPoint(c); }
+        drawStrategy: drawStrategy
     });
     canvasWrapper.drawSet();
 
