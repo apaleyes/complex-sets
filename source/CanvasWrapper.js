@@ -56,8 +56,6 @@ CanvasWrapper.prototype = {
     },
 
     drawSet: function () {
-        var ratio = this.getRatio();
-
         var start = new Date();
         this.drawStrategy.draw(this);
 
@@ -180,17 +178,5 @@ CanvasWrapper.prototype = {
         var xValid = (xSize >= this.minZoomWindowSize);
         var yValid = (ySize >= this.minZoomWindowSize);
         return xValid && yValid;
-    },
-
-    getRatio: function () {
-        var xCurrent = this.currentAxes.x_max - this.currentAxes.x_min;
-        var yCurrent = this.currentAxes.y_max - this.currentAxes.y_min;
-        var xDefault = this.defaultAxes.x_max - this.defaultAxes.x_min;
-        var yDefault = this.defaultAxes.y_max - this.defaultAxes.y_min;
-
-        var xRatio = xDefault / xCurrent;
-        var yRatio = yDefault / yCurrent;
-
-        return Math.min(xRatio, yRatio);
     }
 }
