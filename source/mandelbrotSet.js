@@ -47,7 +47,7 @@ window.onload = function (){
         drawStrategy: drawStrategy
     };
 
-    canvasWrapper = new CanvasWrapper(options);
+    canvasWrapper = new ZoomCanvasWrapper(options);
     canvasWrapper.drawSet();
 
     var resetButton = document.getElementsByClassName('resetButton')[0];

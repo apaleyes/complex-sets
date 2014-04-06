@@ -27,7 +27,7 @@ window.onload = function () {
 
     var resetButton = document.getElementsByClassName('resetButton')[0];
     resetButton.onclick = function () {
-        canvasWrapper.resetZoom();
+        //canvasWrapper.resetZoom();
     }
 }
 
