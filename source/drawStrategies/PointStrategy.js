@@ -1,11 +1,6 @@
 function PointStrategy(options) {
     this.checkPoint = options.checkPoint;
-    
-    if (options.colorPoint && options.colorPoint != null) {
-        this.colorPoint = options.colorPoint;
-    } else {
-        this.colorPoint = this.defaultColorPoint;
-    }
+    this.colorPoint = options.colorPoint;
 
     if (options.postColorPoint && options.postColorPoint != null) {
         this.postColorPoint = options.postColorPoint;
@@ -54,13 +49,5 @@ PointStrategy.prototype.draw = function(canvasWrapper) {
                 canvasWrapper.applyColor(color, w, h);
             }
         }
-    }
-};
-
-PointStrategy.prototype.defaultColorPoint = function(pointData) {
-    if (pointData.inSet) {
-        return '#000000';
-    } else {
-        return;
     }
 };

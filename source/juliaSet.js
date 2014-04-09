@@ -14,7 +14,14 @@ var canvasWrapper;
 window.onload = function () {
     var checker = new JuliaSetChecker(maxIter, c, R);
     var drawStrategy = new PointStrategy({
-        checkPoint: function(c) { return checker.checkPoint(c); }
+        checkPoint: function(c) { return checker.checkPoint(c); },
+        colorPoint: function(pointData) {
+            if (pointData.inSet) {
+                return '#000000';
+            } else {
+                return;
+            }
+        }
     });
 
     canvasWrapper = new CanvasWrapper({
