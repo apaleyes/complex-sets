@@ -91,10 +91,10 @@ ZoomCanvasWrapper.prototype.initEndZoom = function() {
 
 ZoomCanvasWrapper.prototype.performZoom = function() {
     this.currentAxes = {
-        x_min: this.translateX(Math.min(this.startX, this.endX)),
-        x_max: this.translateX(Math.max(this.startX, this.endX)),
-        y_min: this.translateY(Math.max(this.startY, this.endY)),
-        y_max: this.translateY(Math.min(this.startY, this.endY))
+        x_min: this.translateToComplexX(Math.min(this.startX, this.endX)),
+        x_max: this.translateToComplexX(Math.max(this.startX, this.endX)),
+        y_min: this.translateToComplexY(Math.max(this.startY, this.endY)),
+        y_max: this.translateToComplexY(Math.min(this.startY, this.endY))
     }
 
     this.clearCanvas();

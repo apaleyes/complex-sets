@@ -29,7 +29,7 @@ PointStrategy.prototype.draw = function(canvasWrapper) {
 
     for (var w = 0; w <= width; w++){
         for (var h = 0; h <= height; h++){
-            var z = canvasWrapper.translatePoint(w, h);
+            var z = canvasWrapper.translateToComplex(w, h);
             var pointData = this.checkPoint(z);
             this.allPointsData[w][h] = pointData;
             var color = this.colorPoint(pointData);
@@ -44,7 +44,7 @@ PointStrategy.prototype.draw = function(canvasWrapper) {
     if (this.postColorPoint) {
         for (var w = 0; w <= width; w++){
             for (var h = 0; h <= height; h++){
-                var z = canvasWrapper.translatePoint(w, h);
+                var z = canvasWrapper.translateToComplex(w, h);
                 var color = this.postColorPoint(this.allPointsData[w][h]);
                 canvasWrapper.applyColor(color, w, h);
             }

@@ -15,23 +15,41 @@ var CanvasWrapper = function (options) {
 }
 
 CanvasWrapper.prototype = {
-    translateX: function (px) {
+    translateToComplexX: function (px) {
         var x_range = this.currentAxes.x_max - this.currentAxes.x_min;
         var x = x_range / this.width * px + this.currentAxes.x_min;
         return x;
     },
 
-    translateY: function (py) {
+    translateToComplexY: function (py) {
         var y_range = this.currentAxes.y_max - this.currentAxes.y_min;
         var y = -1.0 * y_range / this.height * py + this.currentAxes.y_max;
         return y;
     },
 
-    translatePoint: function (px, py) {
-        var x = this.translateX(px);
-        var y = this.translateY(py);
+    translateToComplex: function (px, py) {
+        var x = this.translateToComplexX(px);
+        var y = this.translateToComplexY(py);
 
         return new Complex(x, y);
+    },
+
+    translateFromComplexX: function(z) {
+        var x_range = this.currentAxes.x_max - this.currentAxes.x_min;
+        var px = (z.x - this.currentAxes.x_min) * this.width / x_range;
+        return px;
+    },
+
+    translateFromComplexY: function(z) {
+        var y_range = this.currentAxes.y_max - this.currentAxes.y_min;
+        var py = (this.currentAxes.y_max - z.y) * this.height / y_range;
+        return py;
+    },
+
+    translateFromComplex: function(z) {
+        var px = this.translateFromComplexX(z);
+        var py = this.translateFromComplexY(z);
+        return [px, py];
     },
 
     toWidthUnits: function (w) {
