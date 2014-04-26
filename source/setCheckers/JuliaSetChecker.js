@@ -13,11 +13,12 @@ JuliaSetChecker.prototype.iterationFunction = function (z) {
 };
 
 JuliaSetChecker.prototype.checkPoint = function(z) {
+    var initZ = z;
     for (var i = 1; i <= this.maxIter; i++) {
         z = this.iterationFunction(z);
         if (z.abs() > this.R) {
-          return {inSet: false};
+          return {point: initZ, inSet: false};
         }
     }
-    return {inSet: true};
+    return {point: initZ, inSet: true};
 }

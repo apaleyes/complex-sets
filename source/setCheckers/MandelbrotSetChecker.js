@@ -11,8 +11,10 @@ MandelbrotSetChecker.prototype.iterationFunction = function (z, c) {
 };
 
 MandelbrotSetChecker.prototype.checkPoint = function(c) {
+    var initC = c;
+
     if (this.checkCardioidOrSecondBulb(c)) {
-        return {inSet: true};
+        return {point: initC, inSet: true};
     }
 
     var z = new Complex(), prevZ;
@@ -21,15 +23,15 @@ MandelbrotSetChecker.prototype.checkPoint = function(c) {
         z = this.iterationFunction(z, c);
 
         if (z.equals(prevZ)) {
-            return {inSet: true};
+            return {point: initC, inSet: true};
         }
 
         if (z.normSquared() > 4) {
-            return {inSet: false, iteration: i};
+            return {point: initC, inSet: false, iteration: i};
         }
     }
 
-    return {inSet: true};
+    return {point: initC, inSet: true};
 };
 
 // Optimization check
