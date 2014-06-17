@@ -1,10 +1,8 @@
 function JuliaSetChecker(maxIter, p, R) {
     this.p = p;
     this.R = R;
-    ComplexSetChecker.call(this, maxIter, "Julia Set");
+    this.maxIter = maxIter;
 }
-
-JuliaSetChecker.prototype = Object.create(ComplexSetChecker.prototype);
 
 JuliaSetChecker.prototype.constructor = JuliaSetChecker;
 

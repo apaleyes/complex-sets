@@ -1,8 +1,6 @@
 function MandelbrotSetChecker(maxIter) {
-    ComplexSetChecker.call(this, maxIter, "Mandelbrot Set");
+    this.maxIter = maxIter;
 }
-
-MandelbrotSetChecker.prototype = Object.create(ComplexSetChecker.prototype);
 
 MandelbrotSetChecker.prototype.constructor = MandelbrotSetChecker;
 
