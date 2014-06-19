@@ -24,32 +24,21 @@ window.onload = function (){
 
     var checker = new MandelbrotSetChecker(maxIter);
 
-    // var drawStrategy = new PointStrategy({
-    //     checkPoint: function(c) { return checker.checkPoint(c); },
-    //     colorPoint: function(pointData) {
-    //         if (!pointData.inSet) {
-    //             histogram.countColor(pointData.iteration);
-    //         }
-    //     },
-    //     postColorPoint: function(pointData) {
-    //         if (pointData.inSet) {
-    //             return histogram.getColor(maxIter);
-    //         } else {
-    //             return histogram.getColor(pointData.iteration);
-    //         }
-    //     }
-    // });
-
-    var drawStrategy = new LineStrategy({
+    var drawStrategy = new PointStrategy({
         checkPoint: function(c) { return checker.checkPoint(c); },
         colorPoint: function(pointData) {
+            if (!pointData.inSet) {
+                histogram.countColor(pointData.iteration);
+            }
+        },
+        postColorPoint: function(pointData) {
             if (pointData.inSet) {
-                return "rgb(255,255,255)";
+                return histogram.getColor(maxIter);
             } else {
-                return "rgb(0,0,0)";
+                return histogram.getColor(pointData.iteration);
             }
         }
-    })
+    });
 
     var options = {
         canvasId: 'main',
