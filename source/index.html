@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <script type="text/javascript" src="Complex.js"></script>
+        <script type="text/javascript" src="CanvasWrapper.js"></script>
+        <script type="text/javascript" src="ZoomCanvasWrapper.js"></script>
+        <script type="text/javascript" src="drawStrategies/PointStrategy.js"></script>
+        <script type="text/javascript" src="drawStrategies/LineStrategy.js"></script>
+        <script type="text/javascript" src="colorProviders/ColorProvider.js"></script>
+        <script type="text/javascript" src="colorProviders/HistogramColorProvider.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <link type="text/css" rel="stylesheet" href="style.css"></li>
+    </head>
+    <body>
+        <menu>
+            <a href="#" data-set-checker="JuliaSetChecker" data-src="setCheckers/JuliaSetChecker.js">Julia Set</a>
+            <a href="#" data-set-checker="MandelbrotSetChecker" data-src="setCheckers/MandelbrotSetChecker.js">Mandelbrot Set</a>
+        </menu>
+        <div class="canvasContainer">
+            <canvas id="main" width="800" height="800">
+            </canvas>
+            <canvas id="zoom" width="800" height="800">
+            </canvas>
+        </div>
+        <input type="button" value="Reset" class="resetButton"></input>
+
+    </body>
+</html>
