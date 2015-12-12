@@ -47,5 +47,13 @@ Complex.prototype = {
 
     normSquared: function() {
         return this.x*this.x + this.y*this.y;
+    },
+
+    re: function() {
+        return this.x;
+    },
+
+    im: function() {
+        return this.y;
     }
 }
