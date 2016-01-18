@@ -47,6 +47,13 @@ window.onload = function (){
         drawStrategy: drawStrategy
     };
 
+    var canvas = document.getElementById('main');
+    var zoomCanvas = document.getElementById('zoom');
+    canvas.width = document.body.clientWidth;
+    zoomCanvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+    zoomCanvas.height = document.body.clientHeight;
+
     canvasWrapper = new ZoomCanvasWrapper(options);
     canvasWrapper.drawSet();
 

@@ -1,27 +1,24 @@
 div.canvasContainer {
-    margin: 10px 20px 0px 10px;
-    float: left;
-    position: relative;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 canvas {
-    border-width: medium;
+    border: 0;
 }
 
 canvas#main {
-    border-style: dotted;    
-    height: 600px;
-    width: 600px;
 }
 
 canvas#zoom {
-    border-style: solid;
-    border-color: transparent;
     position: absolute;
     left: 0;
     top: 0;
-    height: 600px;
-    width: 600px;
 }
 
 .resetButton {
