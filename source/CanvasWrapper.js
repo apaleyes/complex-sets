@@ -52,6 +52,22 @@ CanvasWrapper.prototype = {
         return [px, py];
     },
 
+    adjustCurrentAxes: function() {
+        var x_range = this.currentAxes.x_max - this.currentAxes.x_min;
+        var y_range = this.currentAxes.y_max - this.currentAxes.y_min;
+        if (x_range / this.width < y_range / this.height) {
+            var required_x_range = this.width / this.height * y_range;
+            var x_margin = (required_x_range - x_range) / 2.0;
+            this.currentAxes.x_max += x_margin;
+            this.currentAxes.x_min -= x_margin;
+        } else if (x_range / this.width > y_range / this.height) {
+            var required_y_range = this.height / this.width * x_range;
+            var y_margin = (required_y_range - y_range) / 2.0;
+            this.currentAxes.y_max += y_margin;
+            this.currentAxes.y_min -= y_margin;
+        } // otherwise they are equal - do nothing
+    },
+
     toWidthUnits: function (w) {
         return w / this.canvas.clientWidth * this.width;
     },
@@ -67,6 +83,7 @@ CanvasWrapper.prototype = {
 
     drawSet: function () {
         var start = new Date();
+        this.adjustCurrentAxes();
         this.drawStrategy.draw(this);
 
         var end = new Date();
