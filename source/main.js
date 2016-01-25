@@ -1,21 +1,68 @@
+var maxIter = 200;
+
+var defaults = {
+   x_min: -2,
+   x_max: 0.75,
+   y_min: -1.5,
+   y_max: 1.5
+};
+
 var canvasWrapper;
 
 window.onload = function (){
-    var setLinks = document.querySelectorAll("menu a");
-    for (var i = 0; i < setLinks.length; i++) {
-        setLinks[i].onclick = function (e) {
-            e.preventDefault();
-            var setCheckerName = this.getAttribute("data-set-checker");
-            var src = this.getAttribute("data-src");
-            initializeSet(setCheckerName, src);
-        }
+    var setSelect = document.querySelector("#setSelect");
+    setSelect.onchange = function (e) {
+        // set selection handling
+        console.log(e.target.value);
     }
-}
 
-function initializeSet(setCheckerName, src) {
-    var scriptTag = document.createElement("script");
-    scriptTag.type = "text/javascript";
-    scriptTag.src = src;
-    var head = document.querySelector("head");
-    head.appendChild(scriptTag);
-}
+    var palette = [
+        {rate: 0.0, hue: {r: 0, g: 0, b: 0}},
+        {rate: 0.65, hue: {r: 255, g: 0, b: 0}},
+        {rate: 0.99, hue: {r: 255, g: 255, b: 0}},
+        {rate: 1.0, hue: {r: 255, g: 255, b: 255}}
+    ];
+    var histogram = new HistogramColorProvider(palette, maxIter);
+
+    var checker = new MandelbrotSetChecker(maxIter);
+
+    var drawStrategy = new PointStrategy({
+        checkPoint: function(c) { return checker.checkPoint(c); },
+        colorPoint: function(pointData) {
+            if (!pointData.inSet) {
+                histogram.countColor(pointData.iteration);
+            }
+        },
+        postColorPoint: function(pointData) {
+            if (pointData.inSet) {
+                return histogram.getColor(maxIter);
+            } else {
+                return histogram.getColor(pointData.iteration);
+            }
+        }
+    });
+
+    var options = {
+        canvasId: 'main',
+        zoomCanvasId: 'zoom',
+        defaultAxes: defaults,
+        drawStrategy: drawStrategy
+    };
+
+    var canvas = document.getElementById('main');
+    var zoomCanvas = document.getElementById('zoom');
+    canvas.width = document.body.clientWidth;
+    zoomCanvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+    zoomCanvas.height = document.body.clientHeight;
+    console.log(canvas.width);
+    console.log(canvas.height);
+
+    canvasWrapper = new ZoomCanvasWrapper(options);
+    canvasWrapper.drawSet();
+
+    var resetButton = document.querySelector('.resetButton');
+    resetButton.onclick = function () {
+        canvasWrapper.resetZoom();
+    }
+};

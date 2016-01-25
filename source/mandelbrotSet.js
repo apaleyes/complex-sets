@@ -4,12 +4,8 @@ var defaults = {
    x_min: -2,
    x_max: 0.75,
    y_min: -1.5,
-   y_max: 1.5 
+   y_max: 1.5
 };
-
-var blackHue = {r: 0, g: 0, b: 0};
-var orangeRedHue = {r: 220, g: 20, b: 60};
-var blueGreenHue = {r: 13, g: 152, b: 186};
 
 var canvasWrapper;
 

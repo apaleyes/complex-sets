@@ -7,21 +7,33 @@
         <script type="text/javascript" src="drawStrategies/LineStrategy.js"></script>
         <script type="text/javascript" src="colorProviders/ColorProvider.js"></script>
         <script type="text/javascript" src="colorProviders/HistogramColorProvider.js"></script>
+        <script type="text/javascript" src="setCheckers/MandelbrotSetChecker.js"></script>
         <script type="text/javascript" src="main.js"></script>
         <link type="text/css" rel="stylesheet" href="style.css"></li>
     </head>
     <body>
-        <menu>
-            <a href="#" data-set-checker="JuliaSetChecker" data-src="setCheckers/JuliaSetChecker.js">Julia Set</a>
-            <a href="#" data-set-checker="MandelbrotSetChecker" data-src="setCheckers/MandelbrotSetChecker.js">Mandelbrot Set</a>
-        </menu>
+        <div class="controlPanel">
+            <h1>Blah blah</h1>
+            <p>
+                <label>
+                    <span>Model:</span>
+                    <select id="setSelect">
+                        <option value="mandelbrot">Mandelbrot Set</option>
+                        <option value="julia">Julia Set</option>
+                        <option value="burning-ship">Burning Ship Set</option>
+                    </select>
+                </label>
+                <label>
+                    <span>&nbsp;</span>
+                    <input type="button" value="Reset" class="resetButton" />
+                </label>
+            </p>
+        </div>
         <div class="canvasContainer">
-            <canvas id="main" width="800" height="800">
+            <canvas id="main">
             </canvas>
-            <canvas id="zoom" width="800" height="800">
+            <canvas id="zoom">
             </canvas>
         </div>
-        <input type="button" value="Reset" class="resetButton"></input>
-
     </body>
 </html>
