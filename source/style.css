@@ -31,7 +31,9 @@ canvas#zoom {
 {
     position: absolute;
     width: 400px;
-    height: 180px;
+    /*height: 180px;*/
+    display:block;
+    overflow:auto;
     margin: 10px 5px;
     padding: 25px 15px 25px 10px;
     /* Compatible with CSS2, but makes all children transparent
