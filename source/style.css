@@ -22,7 +22,11 @@ canvas#zoom {
     top: 0;
 }
 
-.resetButton {
+.inputParams {
+    min-height: 100px;
+}
+
+.drawButton {
     margin-top: 10px;
 }
 
@@ -93,15 +97,11 @@ canvas#zoom {
     line-height: 15px;
 }
 .controlPanel .button {
-    background: #E27575;
+    background: #838B8B;
     border: none;
     padding: 10px 25px 10px 25px;
     color: #FFF;
     box-shadow: 1px 1px 5px #B6B6B6;
     border-radius: 3px;
-    text-shadow: 1px 1px 1px #9E3F3F;
     cursor: pointer;
-}
-.controlPanel .button:hover {
-    background: #CF7A7A
 }

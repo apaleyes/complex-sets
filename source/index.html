@@ -17,9 +17,9 @@
     <body>
         <div class="controlPanel">
             <h1>Blah blah</h1>
-            <p>
+            <div>
                 <label>
-                    <span>Model:</span>
+                    <span>Model</span>
                     <select id="setSelect">
                         <option value="mandelbrot">Mandelbrot Set</option>
                         <option value="julia">Julia Set</option>
@@ -29,11 +29,12 @@
                 <hr/>
                 <div class="inputParams">
                 </div>
+                <hr/>
                 <label>
                     <span>&nbsp;</span>
-                    <input type="button" value="Draw" class="drawButton" />
+                    <input type="button" value="Draw" class="drawButton button" />
                 </label>
-            </p>
+            </div>
         </div>
         <div class="canvasContainer">
             <canvas id="main">
