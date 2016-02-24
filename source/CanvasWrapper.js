@@ -5,6 +5,11 @@ var CanvasWrapper = function (options) {
     this.drawStrategy = options.drawStrategy;
 
     this.canvas = document.getElementById(this.canvasId);
+    if (options.fullScreen) {
+        this.canvas.width = document.body.clientWidth;
+        this.canvas.height = document.body.clientHeight;
+    }
+
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.canvasRect = this.canvas.getBoundingClientRect();

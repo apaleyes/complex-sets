@@ -119,17 +119,9 @@ function drawComplexSet(setDescriptor, paramValues) {
         canvasId: 'main',
         zoomCanvasId: 'zoom',
         defaultAxes: defaultAxes,
-        drawStrategy: drawStrategy
+        drawStrategy: drawStrategy,
+        fullScreen: true
     };
-
-    var canvas = document.getElementById('main');
-    var zoomCanvas = document.getElementById('zoom');
-    canvas.width = document.body.clientWidth;
-    zoomCanvas.width = document.body.clientWidth;
-    canvas.height = document.body.clientHeight;
-    zoomCanvas.height = document.body.clientHeight;
-    console.log(canvas.width);
-    console.log(canvas.height);
 
     canvasWrapper = new ZoomCanvasWrapper(options);
     canvasWrapper.drawSet();

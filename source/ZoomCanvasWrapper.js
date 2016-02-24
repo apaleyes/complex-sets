@@ -5,6 +5,10 @@ function ZoomCanvasWrapper(options) {
     this.zoomCanvas = document.getElementById(this.zoomCanvasId);
     this.zoomCanvasRect = this.zoomCanvas.getBoundingClientRect();
     this.zoomContext = this.zoomCanvas.getContext('2d');
+    if (options.fullScreen) {
+        this.zoomCanvas.width = document.body.clientWidth;
+        this.zoomCanvas.height = document.body.clientHeight;
+    }
 
     this.startX = 0;
     this.startY = 0;
