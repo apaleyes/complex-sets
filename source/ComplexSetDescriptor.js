@@ -23,7 +23,7 @@ var MandelbrotSetDescriptor = new ComplexSetDescriptor({
         return {x_min: -2, x_max: 0.75, y_min: -1.5, y_max: 1.5};
     },
     parameters: [
-        {label: 'Max Iterations', id: 'maxIter', tip: 'Max iterations'}
+        {label: 'Max Iterations', id: 'maxIter', tip: 'Max iterations', defaultValue: '50'}
     ],
     checkerFactory: function(parameterValues) {
         return new MandelbrotSetChecker(parameterValues['maxIter']);

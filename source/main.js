@@ -47,7 +47,7 @@ function processSetSelection(setId) {
     // clear children
     inputParamsContainer.innerHTML = '';
 
-    var addInputParam = function(text, id) {
+    var addInputParam = function(text, id, defaultValue) {
         var label = document.createElement('label');
 
         var span = document.createElement('span');
@@ -57,6 +57,9 @@ function processSetSelection(setId) {
         var input = document.createElement('input');
         input.type = 'text';
         input.name = id;
+        if (defaultValue) {
+            input.value = defaultValue;
+        }
         label.appendChild(input);
 
         inputParamsContainer.appendChild(label);
@@ -64,7 +67,7 @@ function processSetSelection(setId) {
 
     for (var i = 0; i < setDescriptor.parameters.length; i++) {
         var param = setDescriptor.parameters[i];
-        addInputParam(param['label'], param['id']);
+        addInputParam(param['label'], param['id'], param['defaultValue']);
     }
 }
 
