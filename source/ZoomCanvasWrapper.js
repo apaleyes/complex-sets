@@ -26,9 +26,8 @@ ZoomCanvasWrapper.prototype.drawZoomRect = function(x, y) {
     this.clearZoomCanvas();
 
     var ctx = this.zoomContext;
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 1;
     ctx.strokeStyle = "#00FF00";
-    ctx.setLineDash([5]);
 
     var minX = this.toWidthUnits(Math.min(this.clientStartX, x));
     var minY = this.toHeightUnits(Math.min(this.clientStartY, y));
