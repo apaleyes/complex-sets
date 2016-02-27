@@ -15,7 +15,7 @@ JuliaSetChecker.prototype.checkPoint = function(z) {
     for (var i = 1; i <= this.maxIter; i++) {
         z = this.iterationFunction(z);
         if (z.abs() > this.R) {
-          return {point: initZ, inSet: false};
+          return {point: initZ, inSet: false, iteration: i};
         }
     }
     return {point: initZ, inSet: true};

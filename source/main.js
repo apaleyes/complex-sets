@@ -83,7 +83,7 @@ function initDrawButton() {
         var paramValues = {};
         for (var i = 0; i < inputParams.length; i++) {
             var inputParam = inputParams[i];
-            paramValues[inputParam.name] = inputParam.value;
+            paramValues[inputParam.name] = parseFloat(inputParam.value);
         }
 
         drawComplexSet(setDescriptor, paramValues);
