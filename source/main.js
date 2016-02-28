@@ -1,23 +1,15 @@
-var canvasWrapper;
-var DefaultSelectValue = '-';
-
 function initSetSelect() {
+    var DefaultSelectValue = '-';
+    var DefaultSelectText = '-- Select a complex set --';
+
     var setSelect = document.querySelector("#setSelect");
 
     // Clear all options from the select, just in case
-    setSelect.options.length = 0;
-
-    var addOption = function(value, text) {
-        var opt = document.createElement('option');
-        opt.value = value;
-        opt.innerHTML = text;
-        setSelect.appendChild(opt);
-    }
-
-    addOption(DefaultSelectValue, '-- Select a complex set --');
+    DomUtils.clearSelect(setSelect);
+    DomUtils.addOption(DefaultSelectValue, DefaultSelectText, setSelect);
     for (var i = 0; i < AllSetDescriptors.length; i++) {
         var setDescriptor = AllSetDescriptors[i];
-        addOption(setDescriptor['id'], setDescriptor['name']);
+        DomUtils.addOption(setDescriptor['id'], setDescriptor['name'], setSelect);
     }
 
     setSelect.onchange = function (e) {
@@ -50,17 +42,8 @@ function processSetSelection(setId) {
     var addInputParam = function(text, id, defaultValue) {
         var label = document.createElement('label');
 
-        var span = document.createElement('span');
-        span.innerHTML = text;
-        label.appendChild(span);
-
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.name = id;
-        if (defaultValue) {
-            input.value = defaultValue;
-        }
-        label.appendChild(input);
+        DomUtils.addSpan(text, label)
+        DomUtils.addInput(id, 'text', label, defaultValue);
 
         inputParamsContainer.appendChild(label);
     }
