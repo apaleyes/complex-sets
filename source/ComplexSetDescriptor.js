@@ -54,4 +54,18 @@ JuliaSetDescriptor.getR = function(c) {
     return (1.0 + Math.sqrt(1 + 4 * c.abs())) / 2.0;
 };
 
-var AllSetDescriptors = [MandelbrotSetDescriptor, JuliaSetDescriptor];
+var BurningShipSetDescriptor = new ComplexSetDescriptor({
+    id: 'burning-ship',
+    name: 'Burning Ship Set',
+    axesFactory: function(parameterValues) {
+        return {x_min: -2, x_max: 0.75, y_min: -1.5, y_max: 1.5};
+    },
+    parameters: [
+        {label: 'Max Iterations', id: 'maxIter', tip: 'Max iterations', defaultValue: '50'}
+    ],
+    checkerFactory: function(parameterValues) {
+        return new BurningShipChecker(parameterValues['maxIter']);
+    }
+});
+
+var AllSetDescriptors = [MandelbrotSetDescriptor, JuliaSetDescriptor, BurningShipSetDescriptor];
