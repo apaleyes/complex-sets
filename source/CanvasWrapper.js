@@ -17,6 +17,13 @@ var CanvasWrapper = function (options) {
 
     this.defaultAxes = options.defaultAxes;
     this.currentAxes = this.defaultAxes;
+
+    if (options.beforeDrawSet) {
+        this.beforeDrawSet = beforeDrawSet;
+    }
+    if (options.afterDrawSet) {
+        this.afterDrawSet = afterDrawSet;
+    }
 }
 
 CanvasWrapper.prototype = {
@@ -87,6 +94,10 @@ CanvasWrapper.prototype = {
     },
 
     drawSet: function () {
+        if (this.beforeDrawSet) {
+            this.beforeDrawSet();
+        }
+
         var start = new Date();
         this.adjustCurrentAxes();
         this.drawStrategy.draw(this);
@@ -94,6 +105,10 @@ CanvasWrapper.prototype = {
         var end = new Date();
         var executionTime = end - start;
         console.log("Drawn in " + executionTime + " ms");
+
+        if (this.afterDrawSet) {
+            this.afterDrawSet();
+        }
     },
 
     applyColor: function (color, w, h) {
