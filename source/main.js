@@ -106,10 +106,26 @@ function drawComplexSet(setDescriptor, paramValues) {
         zoomCanvasId: 'zoom',
         defaultAxes: defaultAxes,
         drawStrategy: drawStrategy,
-        fullScreen: true
+        fullScreen: true,
+        beforeDrawSet: function() {
+            var loader = document.getElementById('loader');
+            loader.style.display = 'block';
+
+            var drawButton = document.querySelector('.drawButton');
+            drawButton.value = 'Loading ...';
+            drawButton.disabled = 'disabled';
+        },
+        afterDrawSet: function() {
+            var loader = document.getElementById('loader');
+            loader.style.display = 'none';
+
+            var drawButton = document.querySelector('.drawButton');
+            drawButton.value = 'Draw';
+            drawButton.disabled = '';
+        }
     };
 
-    canvasWrapper = new ZoomCanvasWrapper(options);
+    var canvasWrapper = new ZoomCanvasWrapper(options);
     canvasWrapper.drawSet();
 }
 

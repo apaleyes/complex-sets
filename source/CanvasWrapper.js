@@ -19,10 +19,10 @@ var CanvasWrapper = function (options) {
     this.currentAxes = this.defaultAxes;
 
     if (options.beforeDrawSet) {
-        this.beforeDrawSet = beforeDrawSet;
+        this.beforeDrawSet = options.beforeDrawSet;
     }
     if (options.afterDrawSet) {
-        this.afterDrawSet = afterDrawSet;
+        this.afterDrawSet = options.afterDrawSet;
     }
 }
 
@@ -98,17 +98,22 @@ CanvasWrapper.prototype = {
             this.beforeDrawSet();
         }
 
-        var start = new Date();
-        this.adjustCurrentAxes();
-        this.drawStrategy.draw(this);
+        // A bit hacky way to allow some time for browser to apply necessary changes before drawing
+        // Without this browser never has time to get in control of the execution thread
+        var self = this;
+        setTimeout(function(){
+            var start = new Date();
+            self.adjustCurrentAxes();
+            self.drawStrategy.draw(self);
 
-        var end = new Date();
-        var executionTime = end - start;
-        console.log("Drawn in " + executionTime + " ms");
+            var end = new Date();
+            var executionTime = end - start;
+            console.log("Drawn in " + executionTime + " ms");
 
-        if (this.afterDrawSet) {
-            this.afterDrawSet();
-        }
+            if (self.afterDrawSet) {
+                self.afterDrawSet();
+            }
+        }, 500);
     },
 
     applyColor: function (color, w, h) {
