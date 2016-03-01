@@ -40,8 +40,8 @@ var JuliaSetDescriptor = new ComplexSetDescriptor({
     },
     parameters: [
         {label: 'Max Iterations', id: 'maxIter', tip: 'Max iterations', defaultValue: '50'},
-        {label: 'c real', id: 'cReal', tip: 'c real', defaultValue: '0.3'},
-        {label: 'c img', id: 'cImg', tip: 'c img', defaultValue: '0.5'}
+        {label: 'Real part of c', id: 'cReal', tip: 'Sensible values are between -1 and 1', defaultValue: '0.3'},
+        {label: 'Imaginary part of c', id: 'cImg', tip: 'Sensible values are between -1 and 1', defaultValue: '0.5'}
     ],
     checkerFactory: function(parameterValues) {
         var maxIter = parameterValues['maxIter'];
