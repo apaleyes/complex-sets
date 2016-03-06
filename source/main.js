@@ -39,18 +39,21 @@ function processSetSelection(setId) {
     // clear children
     inputParamsContainer.innerHTML = '';
 
-    var addInputParam = function(text, id, defaultValue) {
+    var addInputParam = function(text, id, defaultValue, tooltip) {
         var label = document.createElement('label');
 
         DomUtils.add(DomUtils.createSpan(text), label)
-        DomUtils.add(DomUtils.createInput(id, 'text', defaultValue), label);
+        var input = DomUtils.createInput(id, 'text', defaultValue);
+        var tooltip = DomUtils.createTooltipLink(tooltip);
+        DomUtils.add(input, tooltip);
+        DomUtils.add(tooltip, label);
 
         DomUtils.add(label, inputParamsContainer);
     }
 
     for (var i = 0; i < setDescriptor.parameters.length; i++) {
         var param = setDescriptor.parameters[i];
-        addInputParam(param['label'], param['id'], param['defaultValue']);
+        addInputParam(param['label'], param['id'], param['defaultValue'], param['tip']);
     }
 }
 

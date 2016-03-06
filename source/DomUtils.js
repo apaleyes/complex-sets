@@ -26,6 +26,14 @@ DomUtils.createInput = function(name, type, defaultValue) {
     return input;
 }
 
+DomUtils.createTooltipLink = function(tooltipText) {
+    var link = document.createElement('a');
+    link.href = 'javascript:void(0);';
+    link.title = tooltipText;
+    link.className = 'tooltip';
+    return link;
+}
+
 DomUtils.add = function(element, parent) {
     parent.appendChild(element);
 }
