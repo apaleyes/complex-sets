@@ -6,10 +6,10 @@ function initSetSelect() {
 
     // Clear all options from the select, just in case
     DomUtils.clearSelect(setSelect);
-    DomUtils.addOption(DefaultSelectValue, DefaultSelectText, setSelect);
+    DomUtils.add(DomUtils.createOption(DefaultSelectValue, DefaultSelectText), setSelect);
     for (var i = 0; i < AllSetDescriptors.length; i++) {
         var setDescriptor = AllSetDescriptors[i];
-        DomUtils.addOption(setDescriptor['id'], setDescriptor['name'], setSelect);
+        DomUtils.add(DomUtils.createOption(setDescriptor['id'], setDescriptor['name']), setSelect);
     }
 
     setSelect.onchange = function (e) {
@@ -42,10 +42,10 @@ function processSetSelection(setId) {
     var addInputParam = function(text, id, defaultValue) {
         var label = document.createElement('label');
 
-        DomUtils.addSpan(text, label)
-        DomUtils.addInput(id, 'text', label, defaultValue);
+        DomUtils.add(DomUtils.createSpan(text), label)
+        DomUtils.add(DomUtils.createInput(id, 'text', defaultValue), label);
 
-        inputParamsContainer.appendChild(label);
+        DomUtils.add(label, inputParamsContainer);
     }
 
     for (var i = 0; i < setDescriptor.parameters.length; i++) {

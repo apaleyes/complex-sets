@@ -1,27 +1,31 @@
 function DomUtils () {}
-DomUtils.addOption = function(value, text, parent) {
+DomUtils.createOption = function(value, text) {
     var opt = document.createElement('option');
     opt.value = value;
     opt.innerHTML = text;
-    parent.appendChild(opt);
+    return opt;
 }
 
 DomUtils.clearSelect = function(select) {
     select.options.length = 0;
 }
 
-DomUtils.addSpan = function(text, parent) {
+DomUtils.createSpan = function(text) {
     var span = document.createElement('span');
     span.innerHTML = text;
-    parent.appendChild(span);
+    return span;
 }
 
-DomUtils.addInput = function(name, type, parent, defaultValue) {
+DomUtils.createInput = function(name, type, defaultValue) {
     var input = document.createElement('input');
     input.type = type;
     input.name = name;
     if (defaultValue) {
         input.value = defaultValue;
     }
-    parent.appendChild(input);
+    return input;
+}
+
+DomUtils.add = function(element, parent) {
+    parent.appendChild(element);
 }
