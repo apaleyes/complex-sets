@@ -6,8 +6,10 @@ var CanvasWrapper = function (options) {
 
     this.canvas = document.getElementById(this.canvasId);
     if (options.fullScreen) {
-        this.canvas.width = document.body.clientWidth;
-        this.canvas.height = document.body.clientHeight;
+        if (this.canvas.width != document.body.clientWidth)
+            this.canvas.width = document.body.clientWidth;
+        if (this.canvas.height != document.body.clientHeight)
+            this.canvas.height = document.body.clientHeight;
     }
 
     this.width = this.canvas.width;

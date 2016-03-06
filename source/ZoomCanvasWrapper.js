@@ -100,7 +100,6 @@ ZoomCanvasWrapper.prototype.performZoom = function() {
         y_max: this.translateToComplexY(Math.min(this.startY, this.endY))
     }
 
-    this.clearCanvas();
     this.drawSet(self.checkPoint);
 };
 
