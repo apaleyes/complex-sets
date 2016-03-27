@@ -1,0 +1,124 @@
+/* Loader markup and styling mostly taken from http://cssload.net/en/horizontal-bars */
+
+.loaderContainer {
+    background: rgba(201, 201, 201, 0.4) none repeat scroll 0% 0%;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+#warningGradientOuterBarG{
+    height:23px;
+    width:180px;
+    border:1px solid rgb(0,0,0);
+    overflow:hidden;
+    background-color:rgb(255,255,255);
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: gradient(linear, 0% 0%, 0% 100%, from(rgb(255,255,255)), to(rgb(0,0,0)));
+        background: -o-gradient(linear, 0% 0%, 0% 100%, from(rgb(255,255,255)), to(rgb(0,0,0)));
+        background: -ms-gradient(linear, 0% 0%, 0% 100%, from(rgb(255,255,255)), to(rgb(0,0,0)));
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(255,255,255)), to(rgb(0,0,0)));
+        background: -moz-gradient(linear, 0% 0%, 0% 100%, from(rgb(255,255,255)), to(rgb(0,0,0)));
+    background: linear-gradient(top, rgb(255,255,255), rgb(0,0,0));
+        background: -o-linear-gradient(top, rgb(255,255,255), rgb(0,0,0));
+        background: -ms-linear-gradient(top, rgb(255,255,255), rgb(0,0,0));
+        background: -webkit-linear-gradient(top, rgb(255,255,255), rgb(0,0,0));
+        background: -moz-linear-gradient(top, rgb(255,255,255), rgb(0,0,0));
+}
+
+.warningGradientBarLineG{
+    background-color:rgb(255,255,255);
+    float:left;
+    width:16px;
+    height:135px;
+    margin-right:27px;
+    margin-top:-32px;
+    transform:rotate(45deg);
+        -o-transform:rotate(45deg);
+        -ms-transform:rotate(45deg);
+        -webkit-transform:rotate(45deg);
+        -moz-transform:rotate(45deg);
+}
+
+.warningGradientAnimationG{
+    width:266px;
+    animation-name:warningGradientAnimationG;
+        -o-animation-name:warningGradientAnimationG;
+        -ms-animation-name:warningGradientAnimationG;
+        -webkit-animation-name:warningGradientAnimationG;
+        -moz-animation-name:warningGradientAnimationG;
+    animation-duration:1.5s;
+        -o-animation-duration:1.5s;
+        -ms-animation-duration:1.5s;
+        -webkit-animation-duration:1.5s;
+        -moz-animation-duration:1.5s;
+    animation-iteration-count:infinite;
+        -o-animation-iteration-count:infinite;
+        -ms-animation-iteration-count:infinite;
+        -webkit-animation-iteration-count:infinite;
+        -moz-animation-iteration-count:infinite;
+    animation-timing-function:linear;
+        -o-animation-timing-function:linear;
+        -ms-animation-timing-function:linear;
+        -webkit-animation-timing-function:linear;
+        -moz-animation-timing-function:linear;
+}
+
+@keyframes warningGradientAnimationG{
+    0%{
+        margin-left:0px;
+    }
+
+    100%{
+        margin-left:-43px;
+    }
+}
+
+@-o-keyframes warningGradientAnimationG{
+    0%{
+        margin-left:0px;
+    }
+
+    100%{
+        margin-left:-43px;
+    }
+}
+
+@-ms-keyframes warningGradientAnimationG{
+    0%{
+        margin-left:0px;
+    }
+
+    100%{
+        margin-left:-43px;
+    }
+}
+
+@-webkit-keyframes warningGradientAnimationG{
+    0%{
+        margin-left:0px;
+    }
+
+    100%{
+        margin-left:-43px;
+    }
+}
+
+@-moz-keyframes warningGradientAnimationG{
+    0%{
+        margin-left:0px;
+    }
+
+    100%{
+        margin-left:-43px;
+    }
+}

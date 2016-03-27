@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <script type="text/javascript" src="Complex.js"></script>
+        <script type="text/javascript" src="CanvasWrapper.js"></script>
+        <script type="text/javascript" src="ZoomCanvasWrapper.js"></script>
+        <script type="text/javascript" src="DomUtils.js"></script>
+        <script type="text/javascript" src="drawStrategies/PointStrategy.js"></script>
+        <script type="text/javascript" src="drawStrategies/LineStrategy.js"></script>
+        <script type="text/javascript" src="colorProviders/ColorProvider.js"></script>
+        <script type="text/javascript" src="colorProviders/HistogramColorProvider.js"></script>
+        <script type="text/javascript" src="setCheckers/MandelbrotSetChecker.js"></script>
+        <script type="text/javascript" src="setCheckers/JuliaSetChecker.js"></script>
+        <script type="text/javascript" src="setCheckers/BurningShipChecker.js"></script>
+        <script type="text/javascript" src="ComplexSetDescriptor.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <link type="text/css" rel="stylesheet" href="styles/main.css"></link>
+        <link type="text/css" rel="stylesheet" href="styles/loader.css"></link>
+        <link type="text/css" rel="stylesheet" href="styles/tooltip.css"></link>
+    </head>
+    <body>
+        <div class="controlPanel">
+            <h1>Draw a Complex Set</h1>
+            <div>
+                <label>
+                    <span>Set</span>
+                    <select id="setSelect">
+                        <option value="mandelbrot">Mandelbrot Set</option>
+                        <option value="julia">Julia Set</option>
+                        <option value="burning-ship">Burning Ship Set</option>
+                    </select>
+                </label>
+                <hr/>
+                <div class="inputParams">
+                </div>
+                <hr/>
+                <label>
+                    <span>&nbsp;</span>
+                    <input type="button" value="Draw" class="drawButton button" />
+                </label>
+            </div>
+        </div>
+        <div class="canvasContainer">
+            <canvas id="main">
+            </canvas>
+            <canvas id="zoom">
+            </canvas>
+        </div>
+        <div id="loader" class="loaderContainer">
+            <div id="warningGradientOuterBarG">
+                <div id="warningGradientFrontBarG" class="warningGradientAnimationG">
+                    <div class="warningGradientBarLineG"></div>
+                    <div class="warningGradientBarLineG"></div>
+                    <div class="warningGradientBarLineG"></div>
+                    <div class="warningGradientBarLineG"></div>
+                    <div class="warningGradientBarLineG"></div>
+                    <div class="warningGradientBarLineG"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
