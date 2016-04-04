@@ -34,6 +34,9 @@ function getDescriptor(setId) {
 function processSetSelection(setId) {
     var setDescriptor = getDescriptor(setId);
 
+    var descriptionContainer = document.querySelector(".controlPanel .setDescription p");
+    descriptionContainer.innerHTML = setDescriptor['description'];
+
     var inputParamsContainer = document.querySelector(".controlPanel .inputParams");
 
     // clear children

@@ -22,14 +22,14 @@
     padding: 5px 8px;
     position: absolute;
     text-shadow: 0 1px 0 #000;
-    white-space: nowrap;
     z-index: 98;
+    max-width: 100px;
 }
 
 .tooltip:hover:before {
     border: solid;
     border-color: #111 transparent;
-    border-color: rgba(0,0,0,.8) transparent;
+    border-color: rgba(0,0,0,.85) transparent;
     border-width: 5px 5px 0 5px;
     bottom: 21px;
     content: "";
