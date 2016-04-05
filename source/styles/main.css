@@ -22,6 +22,10 @@ canvas#zoom {
     top: 0;
 }
 
+.setDescription {
+    min-height: 100px;
+}
+
 .inputParams {
     min-height: 100px;
 }
