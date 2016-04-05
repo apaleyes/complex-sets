@@ -5,7 +5,9 @@ function BurningShipChecker(maxIter) {
 BurningShipChecker.prototype.constructor = BurningShipChecker;
 
 BurningShipChecker.prototype.iterationFunction = function (z, c) {
-    var z_abs = new Complex(Math.abs(z.re()), Math.abs(z.im()));
+    // In the normal coordinate system this fractal renders upside down
+    // This is the most sutable place to flip it, thus -1.0 multiplier for Im part
+    var z_abs = new Complex(Math.abs(z.re()), -1.0 * Math.abs(z.im()));
     return z_abs.square().add(c);
 };
 
