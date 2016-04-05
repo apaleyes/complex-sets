@@ -101,6 +101,7 @@ CanvasWrapper.prototype = {
         }
 
         // A bit hacky way to allow some time for browser to apply necessary changes before drawing
+        // Idea is to schedule the set drawing with some short delay
         // Without this browser never has time to get in control of the execution thread
         var self = this;
         setTimeout(function(){
