@@ -81,10 +81,13 @@ function initDrawButton() {
 
 function drawComplexSet(setDescriptor, paramValues) {
     var palette = [
-        {rate: 0.0, hue: {r: 0, g: 0, b: 0}},
-        {rate: 0.65, hue: {r: 255, g: 0, b: 0}},
-        {rate: 0.99, hue: {r: 255, g: 255, b: 0}},
-        {rate: 1.0, hue: {r: 255, g: 255, b: 255}}
+        {rate: 0.0, hue: {r: 4, g: 0, b: 122}},
+        {rate: 0.90, hue: {r: 4, g: 0, b: 122}},
+        {rate: 0.93, hue: {r: 0, g: 94, b: 255}},
+        {rate: 0.95, hue: {r: 0, g: 120, b: 255}},
+        {rate: 0.97, hue: {r: 0, g: 159, b: 255}},
+        {rate: 0.99, hue: {r: 0, g: 249, b: 255}},
+        {rate: 1.0, hue: {r: 4, g: 0, b: 122}}
     ];
     var histogram = new HistogramColorProvider(palette, paramValues['maxIter']);
 
